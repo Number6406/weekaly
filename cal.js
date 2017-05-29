@@ -23,21 +23,21 @@ for (var pos in days) {
 
 /* Creates the table with every our/day cell  */
 for (var i = 0; i <= 23; i++) {
-  $("#calendar").append('<tr class="hour" id="h'+i+'"></tr>');
+  $("#calendar tbody").append('<tr class="hour" id="h'+i+'"></tr>');
   var row = $("#h"+i);
 
   row.append('<th class="hour">'+pad(i,2)+':00</th>');
 
   for (var pos in days) {
-    row.append('<td day="'+pos+'" id="d'+ pos +'_h'+ i +'"></td>');
+    row.append('<td day="'+pos+'" hour="'+i+'" id="d'+ pos +'_h'+ i +'"></td>');
   }
 
-  $("#calendar").append('<tr class="hour-half" id="h'+i+'-half"></tr>');
+  $("#calendar tbody").append('<tr class="hour-half" id="h'+i+'-half"></tr>');
   var row = $("#h"+i+"-half");
   row.append('<th class="hour-half">'+pad(i,2)+':30</th>');
 
   for (var pos in days) {
-    row.append('<td day="'+pos+'" id="d'+ pos +'_h'+ i +'-half" class="selectable"></td>');
+    row.append('<td day="'+pos+'" hour="'+i+'.5" id="d'+ pos +'_h'+ i +'-half" class="selectable"></td>');
   }
 
   //console.log(row);
@@ -49,7 +49,10 @@ $("#calendar").bind("mousedown", function (e) {
     filter: 'td',
     cancel: 'a',
     selecting: function(event, ui) {
-        console.log($(ui.selecting).prevAll().length);
+      console.log($(ui.selecting).prevAll().length);
+    },
+    stop: function( event, ui ) {
+      $("#calendar .ui-selected").first().text("ouais");
     }
 });
 
