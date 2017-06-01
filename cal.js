@@ -49,10 +49,12 @@ $("#calendar").bind("mousedown", function (e) {
     filter: 'td',
     cancel: 'a',
     selecting: function(event, ui) {
-      console.log($(ui.selecting).prevAll().length);
+      //console.log($(ui.selecting).prevAll().length);
     },
     stop: function( event, ui ) {
-      $("#calendar .ui-selected").first().text("ouais");
+      $("#calendar .ui-selected").first().text("testing");
+      var selection = $("#calendar .ui-selected");
+      $("#input_select").attr("name", "planning['"+days[selection.first().attr("day")]+"'][]").attr("value", selection.first().attr("hour")+"-"+selection.last().attr("hour"));
     }
 });
 
