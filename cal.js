@@ -58,4 +58,21 @@ $("#calendar").bind("mousedown", function (e) {
     }
 });
 
+test = function(day, begin, end) {
+
+  var id_day = days.indexOf(day);
+
+  var column = $("#calendar .selectable[day="+id_day+"]");
+
+  for (var cell in column) {
+    console.log(cell);
+    if($(cell).attr("hour") >= begin || $(cell).attr("hour") <= end) {
+    }
+  }
+
+}
+
+test("friday", 0, 8.5);
+
+
 console.log($("#d0_h5").attr("day"));
