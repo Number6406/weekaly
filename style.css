@@ -22,10 +22,6 @@
   border-top: 1px solid silver;
 }
 
-#calendar tbody tr:first-child td {
-  border: none;
-}
-
 #calendar tr.hour-half td {
   border-top: 1px dashed silver;
 }
@@ -53,4 +49,10 @@
   background: #009688;
   border: 1px solid transparent;
   color: white;
+ }
+
+ #calendar td.plannified {
+   background: #333;
+   border: 1px solid transparent;
+   color: white;
  }

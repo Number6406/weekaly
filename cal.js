@@ -29,7 +29,7 @@ for (var i = 0; i <= 23; i++) {
   row.append('<th class="hour">'+pad(i,2)+':00</th>');
 
   for (var pos in days) {
-    row.append('<td day="'+pos+'" hour="'+i+'" id="d'+ pos +'_h'+ i +'"></td>');
+    row.append('<td day="'+pos+'" hour="'+i+'" id="d'+ pos +'_h'+ i +'" class="selectable"></td>');
   }
 
   $("#calendar tbody").append('<tr class="hour-half" id="h'+i+'-half"></tr>');
@@ -46,8 +46,8 @@ for (var i = 0; i <= 23; i++) {
 $("#calendar").bind("mousedown", function (e) {
             e.metaKey = false;
  }).selectable({
-    filter: 'td',
-    cancel: 'a',
+    filter: 'td.selectable',
+    cancel: 'td.plannified',
     selecting: function(event, ui) {
       //console.log($(ui.selecting).prevAll().length);
     },
@@ -58,21 +58,22 @@ $("#calendar").bind("mousedown", function (e) {
     }
 });
 
-test = function(day, begin, end) {
+test = function(day, begin, end, uniq_id) {
 
   var id_day = days.indexOf(day);
 
   var column = $("#calendar .selectable[day="+id_day+"]");
 
-  for (var cell in column) {
-    console.log(cell);
-    if($(cell).attr("hour") >= begin || $(cell).attr("hour") <= end) {
+  column.each(function( index ) {
+    if( $(this).attr("hour") >= begin && $(this).attr("hour") <= end ) {
+      $(this).addClass("plannified plannified_"+uniq_id);
+      $(this).removeClass("selectable ui-selectee");
     }
-  }
+  });
 
 }
 
-test("friday", 0, 8.5);
+test("friday", 0, 8.5, 1);
 
 
 console.log($("#d0_h5").attr("day"));
