@@ -43,16 +43,27 @@ for (var i = 0; i <= 23; i++) {
   //console.log(row);
 }
 
+var row_select = 0;
+
 $("#calendar").bind("mousedown", function (e) {
             e.metaKey = false;
  }).selectable({
     filter: 'td.selectable',
     cancel: 'td.plannified',
+    start: function(event, ui) {
+      row_select = 0;
+    },
     selecting: function(event, ui) {
-      //console.log($(ui.selecting).prevAll().length);
+      if(row_select == 0) row_select = $(ui.selecting).prevAll().length;
+      else {
+        $(".selectable.ui-selecting").each(function(index) {
+          if(parseInt($(this).attr("day"))+1 != row_select) {
+            $(this).removeClass("ui-selected ui-selecting");
+          }
+        });
+      }
     },
     stop: function( event, ui ) {
-      $("#calendar .ui-selected").first().text("testing");
       var selection = $("#calendar .ui-selected");
       $("#input_select").attr("name", "planning['"+days[selection.first().attr("day")]+"'][]").attr("value", selection.first().attr("hour")+"-"+selection.last().attr("hour"));
     }
